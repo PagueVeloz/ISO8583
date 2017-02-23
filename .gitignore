@@ -2,3 +2,4 @@ ISO8583/bin/*
 ISO8583/obj/*
 ISO8583/project.lock.json
 .vs/ISO8583/v14/.suo
+.vs/config/applicationhost.config
