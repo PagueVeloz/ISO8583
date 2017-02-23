@@ -38,6 +38,21 @@ namespace ISO8583
         }
 
         /// <summary>
+        /// Get the value of a bit.
+        /// </summary>
+        /// <param name="bit">The bit to return the value.</param>
+        /// <returns>The value of the bit or null if the bit isn't present.</returns>
+        public string Get(short bit)
+        {
+            if (_bits.ContainsKey(bit))
+            {
+                return _bits[bit];
+            }
+
+            return null;
+        }
+
+        /// <summary>
         /// Insert bit into the message.
         /// </summary>
         /// <param name="bit">The bit to be added.</param>
