@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B47B047F-19B0-48DF-8BA6-41A43C12B4CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{AA837655-A33E-4AE0-9205-E46CF7AEE8E6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISO8583", "ISO8583\ISO8583.csproj", "{71EA2E98-1A6A-476A-89DE-2E96B9551C2D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71EA2E98-1A6A-476A-89DE-2E96B9551C2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71EA2E98-1A6A-476A-89DE-2E96B9551C2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71EA2E98-1A6A-476A-89DE-2E96B9551C2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71EA2E98-1A6A-476A-89DE-2E96B9551C2D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{71EA2E98-1A6A-476A-89DE-2E96B9551C2D} = {B47B047F-19B0-48DF-8BA6-41A43C12B4CC}
+	EndGlobalSection
+EndGlobal
