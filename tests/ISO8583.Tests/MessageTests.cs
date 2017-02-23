@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using ISO8583.Message;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Text;
 
 namespace ISO8583.Tests
@@ -6,9 +7,9 @@ namespace ISO8583.Tests
     [TestClass]
     public class MessageTests
     {
-        private Message CreateMessage()
+        private SendMessage CreateMessage()
         {
-            return new Message("0800") //Message Type
+            return new SendMessage("0800") //Message Type
                 .Append(3, "008000") //Process Code
                 .Append(7, "0223141530") //GMT MMddHHmmss
                 .Append(11, "000001") //NSU Terminal
