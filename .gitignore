@@ -1,5 +1,7 @@
 packages/*
 
+src/Console/*
+
 src/ISO8583/bin/*
 src/ISO8583/obj/*
 src/ISO8583/project.lock.json

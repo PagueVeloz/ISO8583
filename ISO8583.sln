@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISO8583", "src\ISO8583\ISO8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISO8583.Tests", "tests\ISO8583.Tests\ISO8583.Tests.csproj", "{BF97331E-C778-4734-B5B3-AEF807D483B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console", "src\Console\Console.csproj", "{F37831AF-2690-4522-A6A1-3647F29F52CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +27,10 @@ Global
 		{BF97331E-C778-4734-B5B3-AEF807D483B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF97331E-C778-4734-B5B3-AEF807D483B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF97331E-C778-4734-B5B3-AEF807D483B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F37831AF-2690-4522-A6A1-3647F29F52CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F37831AF-2690-4522-A6A1-3647F29F52CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F37831AF-2690-4522-A6A1-3647F29F52CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F37831AF-2690-4522-A6A1-3647F29F52CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,5 +38,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{71EA2E98-1A6A-476A-89DE-2E96B9551C2D} = {B47B047F-19B0-48DF-8BA6-41A43C12B4CC}
 		{BF97331E-C778-4734-B5B3-AEF807D483B9} = {AA837655-A33E-4AE0-9205-E46CF7AEE8E6}
+		{F37831AF-2690-4522-A6A1-3647F29F52CC} = {B47B047F-19B0-48DF-8BA6-41A43C12B4CC}
 	EndGlobalSection
 EndGlobal

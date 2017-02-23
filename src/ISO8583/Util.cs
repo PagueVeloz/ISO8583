@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -66,6 +67,66 @@ namespace ISO8583
             }
 
             return result.ToString();
+        }
+
+        /// <summary>
+        /// Convert an hexa string to a binary string.
+        /// </summary>
+        /// <param name="hexa">An hexa string.</param>
+        /// <returns>A binary string.</returns>
+        public static string ConvertHexaToBinary(string hexa)
+        {
+            var result = new StringBuilder();
+
+            foreach (var item in hexa.Select(x => x))
+            {
+                var base16 = Convert.ToInt32(item.ToString(), 16);
+                var base02 = Convert.ToString(base16, 2);
+
+                base02 = base02.PadLeft(4, '0');
+
+                result.Append(base02);
+            }
+
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// Read the active bits from an hexa string.
+        /// </summary>
+        /// <param name="hexa">An hexa string.</param>
+        /// <returns>An array with the active bits.</returns>
+        public static short[] ReadActiveBitsFromHexaBitmap(string hexa)
+        {
+            var binary = ConvertHexaToBinary(hexa);
+            var bits = ReadActiveBitsFromBinaryBitmap(binary);
+
+            return bits;
+        }
+
+        /// <summary>
+        /// Read the active bits from an binary string.
+        /// </summary>
+        /// <param name="hexa">An binary string.</param>
+        /// <returns>An array with the active bits.</returns>
+        public static short[] ReadActiveBitsFromBinaryBitmap(string binary)
+        {
+            if (binary.Length != 64)
+            {
+                throw new InvalidOperationException("The binary must have 64 bits.");
+            }
+
+            var bits = new List<short>();
+
+            for (short i = 0; i < binary.Length; i++)
+            {
+                if (binary[i] == '1')
+                {
+                    bits.Add((short)(i + 1));
+                }
+            }
+
+            return bits.ToArray();
         }
     }
 }
