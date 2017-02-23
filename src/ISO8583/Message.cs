@@ -5,6 +5,9 @@ using System.Text;
 
 namespace ISO8583
 {
+    /// <summary>
+    /// Represents a message ISO8583
+    /// </summary>
     public class Message
     {
         private string _type;
