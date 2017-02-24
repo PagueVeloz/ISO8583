@@ -1,45 +1,87 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ISO8583.Message
 {
+    /// <summary>
+    /// Represents the layout of a message.
+    /// </summary>
     public class MessageLayout
     {
+        private IDictionary<short, FieldLayout> _fields;
+
+        /// <summary>
+        /// Instantiante a new message layout.
+        /// </summary>
         public MessageLayout()
         {
-            Fields = new Dictionary<short, Field>();
+            _fields = new Dictionary<short, FieldLayout>();
         }
 
-        public IDictionary<short, Field> Fields { get; set; }
-
-        public void Add(short bit, int size, Field.FieldType type = Field.FieldType.FIX)
+        /// <summary>
+        /// Insert a new field layout.
+        /// </summary>
+        /// <param name="bit">The bit of the field.</param>
+        /// <param name="size">The size of the field.</param>
+        public void AddField(short bit, int size)
         {
-            Fields.Add(bit, new Field(size, type));
+            _fields.Add(bit, new FieldLayout(size, FieldLayout.FieldType.FIX));
         }
 
-        public MessageLayout Append(short bit, int size, Field.FieldType type = Field.FieldType.FIX)
+        /// <summary>
+        /// Insert a new field layout.
+        /// </summary>
+        /// <param name="bit">The bit of the field.</param>
+        /// <param name="type">The type of the field.</param>
+        public void AddField(short bit, FieldLayout.FieldType type)
         {
-            Add(bit, size, type);
+            if (type == FieldLayout.FieldType.FIX)
+            {
+                throw new InvalidOperationException("The type FIX must have a size.");
+            }
+
+            _fields.Add(bit, new FieldLayout(null, type));
+        }
+
+        /// <summary>
+        /// Insert a new field layout.
+        /// </summary>
+        /// <param name="bit">The bit of the field.</param>
+        /// <param name="size">The size of the field.</param>
+        /// <returns>The message layout to use fluently.</returns>
+        public MessageLayout AppendField(short bit, int size)
+        {
+            AddField(bit, size);
 
             return this;
         }
 
-        public class Field
+        /// <summary>
+        /// Insert a new field layout.
+        /// </summary>
+        /// <param name="bit">The bit of the field.</param>
+        /// <param name="type">The type of the field.</param>
+        /// <returns>The message layout to use fluently.</returns>
+        public MessageLayout AppendField(short bit, FieldLayout.FieldType type)
         {
-            public Field(int size, FieldType type)
+            AddField(bit, type);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Get a field layout.
+        /// </summary>
+        /// <param name="bit">The bit of the field.</param>
+        /// <returns>The field layout of the respective bit.</returns>
+        public FieldLayout GetField(short bit)
+        {
+            if (_fields.ContainsKey(bit))
             {
-                Size = size;
-                Type = type;
+                return _fields[bit];
             }
 
-            public int Size { get; set; }
-            public FieldType Type { get; set; }
-
-            public enum FieldType
-            {
-                FIX,
-                LLV,
-                LLLV
-            }
+            return null;
         }
     }
 }

@@ -126,7 +126,7 @@ namespace ISO8583
                 }
             }
 
-            return bits.ToArray();
+            return bits.OrderBy(x => x).ToArray();
         }
     }
 }

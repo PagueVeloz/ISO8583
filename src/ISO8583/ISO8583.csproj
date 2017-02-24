@@ -39,6 +39,7 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Message\FieldLayout.cs" />
     <Compile Include="Message\MessageLayout.cs" />
     <Compile Include="Message\ReceiveMessage.cs" />
     <Compile Include="Message\SendMessage.cs" />
