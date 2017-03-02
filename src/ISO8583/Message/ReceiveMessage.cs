@@ -33,19 +33,19 @@ namespace ISO8583.Message
                 var fieldLayot = layout.GetField(bit);
                 var size = fieldLayot.Size ?? 0;
 
-                if (fieldLayot.Type != FieldLayout.FieldType.FIX)
+                if (fieldLayot.Type != FieldType.FIX)
                 {
                     var headSize = 0;
 
                     switch (fieldLayot.Type)
                     {
-                        case FieldLayout.FieldType.LV:
+                        case FieldType.LV:
                             headSize = 1;
                             break;
-                        case FieldLayout.FieldType.LLV:
+                        case FieldType.LLV:
                             headSize = 2;
                             break;
-                        case FieldLayout.FieldType.LLLV:
+                        case FieldType.LLLV:
                             headSize = 3;
                             break;
                         default:

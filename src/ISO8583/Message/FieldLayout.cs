@@ -10,10 +10,11 @@
         /// </summary>
         /// <param name="size">The size of the field.</param>
         /// <param name="type">The type of the field.</param>
-        public FieldLayout(int? size, FieldType type)
+        public FieldLayout(int? size, FieldType type, DataType dataType)
         {
             Size = size;
             Type = type;
+            DataType = dataType;
         }
 
         /// <summary>
@@ -26,12 +27,24 @@
         /// </summary>
         public FieldType Type { get; set; }
 
-        public enum FieldType
-        {
-            FIX,
-            LV,
-            LLV,
-            LLLV
-        }
+        /// <summary>
+        /// The data type of the field.
+        /// </summary>
+        public DataType DataType { get; set; }
+    }
+
+    public enum FieldType
+    {
+        FIX,
+        LV,
+        LLV,
+        LLLV
+    }
+
+    public enum DataType
+    {
+        N,
+        A,
+        AN
     }
 }

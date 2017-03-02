@@ -14,6 +14,7 @@ namespace ISO8583.Message
         private Encoding _encoding;
         private IDictionary<short, string> _fields;
         private string _built;
+        private MessageLayout _layout;
 
         /// <summary>
         /// Instantiate a new message determining the type.
@@ -28,6 +29,15 @@ namespace ISO8583.Message
         }
 
         /// <summary>
+        /// Instantiate a new message determining the type.
+        /// </summary>
+        /// <param name="layout">The layout of the message.</param>
+        public SendMessage(MessageLayout layout) : this(layout.Type)
+        {
+            _layout = layout;
+        }
+
+        /// <summary>
         /// Instantiate a new message determining the type and encoding.
         /// </summary>
         /// <param name="type">The type of the message. Usually a 4 digit number ("0800").</param>
@@ -36,7 +46,17 @@ namespace ISO8583.Message
         {
             _encoding = encoding; ;
         }
-        
+
+        /// <summary>
+        /// Instantiate a new message determining the type and encoding.
+        /// </summary>
+        /// <param name="layout">The layout of the message.</param>
+        /// <param name="encoding">The encoding to use when packing (Pack()) message into bytes to send.</param>
+        public SendMessage(MessageLayout layout, Encoding encoding) : this(layout.Type, encoding)
+        {
+            _layout = layout;
+        }
+
         /// <summary>
         /// Insert bit into the message.
         /// </summary>
@@ -44,6 +64,49 @@ namespace ISO8583.Message
         /// <param name="value">The value of the bit. Must be in the correct format and size.</param>
         public void Add(short bit, string value)
         {
+            if (_layout != null)
+            {
+                var field = _layout.GetField(bit);
+
+                if (field != null)
+                {
+                    if (field.Type == FieldType.FIX)
+                    {
+                        switch (field.DataType)
+                        {
+                            case DataType.N:
+                                value = value.PadLeft(field.Size.Value, '0');
+                                break;
+                            case DataType.A:
+                            case DataType.AN:
+                                value = value.PadRight(field.Size.Value, ' ');
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        var length = value.Length.ToString();
+
+                        switch (field.Type)
+                        {
+                            case FieldType.LV:
+                                length = length.PadLeft(1, '0');
+                                break;
+                            case FieldType.LLV:
+                                length = length.PadLeft(2, '0');
+                                break;
+                            case FieldType.LLLV:
+                                length = length.PadLeft(3, '0');
+                                break;
+                        }
+
+                        value = length + value;
+                    }
+                }
+            }
+
             _fields.Add(bit, value);
         }
 
