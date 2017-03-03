@@ -58,6 +58,31 @@ namespace ISO8583.Message
         }
 
         /// <summary>
+        /// Fill the content accordding to the datatype and size.
+        /// </summary>
+        /// <param name="field">The layout of the field.</param>
+        /// <param name="value">The value to fill.</param>
+        /// <returns>The content filled.</returns>
+        private string Fill(FieldLayout field, string value)
+        {
+            switch (field.DataType)
+            {
+                case DataType.N:
+                    value = string.Join("", value.Where(char.IsDigit));
+                    value = value.PadLeft(field.Size.Value, '0');
+                    break;
+                case DataType.A:
+                case DataType.AN:
+                    value = value.PadRight(field.Size.Value, ' ');
+                    break;
+                default:
+                    break;
+            }
+
+            return value;
+        }
+
+        /// <summary>
         /// Insert bit into the message.
         /// </summary>
         /// <param name="bit">The bit to be added.</param>
@@ -72,42 +97,35 @@ namespace ISO8583.Message
                 {
                     if (field.Type == FieldType.FIX)
                     {
-                        switch (field.DataType)
-                        {
-                            case DataType.N:
-                                value = value.PadLeft(field.Size.Value, '0');
-                                break;
-                            case DataType.A:
-                            case DataType.AN:
-                                value = value.PadRight(field.Size.Value, ' ');
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        var length = value.Length.ToString();
-
-                        switch (field.Type)
-                        {
-                            case FieldType.LV:
-                                length = length.PadLeft(1, '0');
-                                break;
-                            case FieldType.LLV:
-                                length = length.PadLeft(2, '0');
-                                break;
-                            case FieldType.LLLV:
-                                length = length.PadLeft(3, '0');
-                                break;
-                        }
-
-                        value = length + value;
+                        value = Fill(field, value);
                     }
                 }
             }
 
             _fields.Add(bit, value);
+        }
+
+        /// <summary>
+        /// Insert bit in the TLV format into the message.
+        /// </summary>
+        /// <param name="bit">The bit to be added.</param>
+        /// <param name="tag">The tag code.</param>
+        /// <param name="length">The length of the content.</param>
+        /// <param name="value">The content of the tag.</param>
+        public void AddTLV(short bit, string tag, string length, string value, DataType type = DataType.N, string valuePrefix = "", string valueSufix = "")
+        {
+            var size = Convert.ToInt32(length) - valuePrefix.Length - valueSufix.Length;
+            var layout = new FieldLayout(size, FieldType.FIX, type);
+            var valueToAppend = tag + length + valuePrefix + Fill(layout, value) + valueSufix;
+
+            if (_fields.ContainsKey(bit))
+            {
+                _fields[bit] += valueToAppend;
+            }
+            else
+            {
+                _fields.Add(bit, valueToAppend);
+            }
         }
 
         /// <summary>
@@ -119,6 +137,21 @@ namespace ISO8583.Message
         public SendMessage Append(short bit, string value)
         {
             Add(bit, value);
+
+            return this;
+        }
+
+        /// <summary>
+        /// Insert bit in the TLV format into the message.
+        /// </summary>
+        /// <param name="bit">The bit to be added.</param>
+        /// <param name="tag">The tag code.</param>
+        /// <param name="length">The length of the content.</param>
+        /// <param name="value">The content of the tag.</param>
+        /// <returns>The message appended to use fluently.</returns>
+        public SendMessage AppendTLV(short bit, string tag, string length, string value, DataType type = DataType.N, string valuePrefix = "", string valueSufix = "")
+        {
+            AddTLV(bit, tag, length, value, type, valuePrefix, valueSufix);
 
             return this;
         }
@@ -149,7 +182,31 @@ namespace ISO8583.Message
 
             foreach (var key in keys)
             {
-                builder.Append(_fields[key]);
+                var field = _layout.GetField(key);
+
+                if (field.Type == FieldType.FIX)
+                {
+                    builder.Append(_fields[key]);
+                }
+                else
+                {
+                    var length = _fields[key].Length.ToString();
+
+                    switch (field.Type)
+                    {
+                        case FieldType.LV:
+                            length = length.PadLeft(1, '0');
+                            break;
+                        case FieldType.LLV:
+                            length = length.PadLeft(2, '0');
+                            break;
+                        case FieldType.LLLV:
+                            length = length.PadLeft(3, '0');
+                            break;
+                    }
+
+                    builder.Append(length + _fields[key]);
+                }
             }
 
             _built = builder.ToString();
