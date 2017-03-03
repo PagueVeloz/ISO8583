@@ -58,6 +58,11 @@ namespace ISO8583.Message
         }
 
         /// <summary>
+        /// The layout of the message.
+        /// </summary>
+        public MessageLayout Layout => _layout;
+
+        /// <summary>
         /// Fill the content accordding to the datatype and size.
         /// </summary>
         /// <param name="field">The layout of the field.</param>

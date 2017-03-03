@@ -20,6 +20,9 @@ namespace ISO8583.Message
             _fields = new Dictionary<short, FieldLayout>();
         }
 
+        /// <summary>
+        /// The type of the message.
+        /// </summary>
         public string Type => _type;
 
         /// <summary>
