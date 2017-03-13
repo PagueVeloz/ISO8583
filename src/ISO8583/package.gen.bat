@@ -1,0 +1,1 @@
+nuget pack project.json -build -prop configuration=release -outputdirectory pkg

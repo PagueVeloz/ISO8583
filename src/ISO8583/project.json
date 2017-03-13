@@ -1,15 +1,32 @@
 ﻿{
+  "title": "ISO8583",
+  "version": "1.0.0-*",
+  "authors": [ "Robson da Silva" ],
+  "description": "Biblioteca para montagem e leitura de mensagens ISO8583",
+
   "supports": {
     "net46.app": {},
     "dnxcore50.app": {}
   },
+
   "dependencies": {
     "Microsoft.NETCore": "5.0.0",
     "Microsoft.NETCore.Portable.Compatibility": "1.0.0"
   },
+
   "frameworks": {
     "dotnet": {
       "imports": "portable-net452"
+    }
+  },
+
+  "packOptions": {
+    "owners": [ "pagueveloz" ],
+    "tags": [ "pagueveloz", "pague", "veloz", "iso", "iso8583" ],
+    "requireLicenseAcceptance": false,
+    "repository": {
+      "type": "git",
+      "url": "https://github.com/PagueVeloz/ISO8583.git"
     }
   }
 }
