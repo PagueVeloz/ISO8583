@@ -4,6 +4,7 @@ src/Console/*
 
 src/ISO8583/bin/*
 src/ISO8583/obj/*
+src/ISO8583/pkg/*
 src/ISO8583/project.lock.json
 
 tests/ISO8583.Tests/bin/*

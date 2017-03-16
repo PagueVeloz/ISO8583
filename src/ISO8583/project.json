@@ -4,20 +4,12 @@
   "authors": [ "Robson da Silva" ],
   "description": "Biblioteca para montagem e leitura de mensagens ISO8583",
 
-  "supports": {
-    "net46.app": {},
-    "dnxcore50.app": {}
-  },
-
   "dependencies": {
-    "Microsoft.NETCore": "5.0.0",
-    "Microsoft.NETCore.Portable.Compatibility": "1.0.0"
+    "NETStandard.Library": "1.6.1"
   },
 
   "frameworks": {
-    "dotnet": {
-      "imports": "portable-net452"
-    }
+    "netstandard1.5": {}
   },
 
   "packOptions": {
