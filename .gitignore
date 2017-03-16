@@ -11,6 +11,4 @@ tests/ISO8583.Tests/bin/*
 tests/ISO8583.Tests/obj/*
 tests/ISO8583.Tests/project.lock.json
 
-.vs/ISO8583/v14/.suo
-.vs/config/applicationhost.config
-.vs/restore.dg
+.vs/*

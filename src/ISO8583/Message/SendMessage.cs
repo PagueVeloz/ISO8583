@@ -23,7 +23,7 @@ namespace ISO8583.Message
         public SendMessage(string type)
         {
             _type = type;
-            _encoding = Encoding.ASCII;
+            _encoding = Encoding.GetEncoding("ASCII");
             _fields = new Dictionary<short, string>();
             _built = null;
         }
@@ -185,32 +185,42 @@ namespace ISO8583.Message
             builder.Append(_type);
             builder.Append(Util.BuildHexaBitmap(keys));
 
-            foreach (var key in keys)
+            if (_layout != null)
             {
-                var field = _layout.GetField(key);
+                foreach (var key in keys)
+                {
+                    var field = _layout.GetField(key);
 
-                if (field.Type == FieldType.FIX)
+                    if (field.Type == FieldType.FIX)
+                    {
+                        builder.Append(_fields[key]);
+                    }
+                    else
+                    {
+                        var length = _fields[key].Length.ToString();
+
+                        switch (field.Type)
+                        {
+                            case FieldType.LV:
+                                length = length.PadLeft(1, '0');
+                                break;
+                            case FieldType.LLV:
+                                length = length.PadLeft(2, '0');
+                                break;
+                            case FieldType.LLLV:
+                                length = length.PadLeft(3, '0');
+                                break;
+                        }
+
+                        builder.Append(length + _fields[key]);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var key in keys)
                 {
                     builder.Append(_fields[key]);
-                }
-                else
-                {
-                    var length = _fields[key].Length.ToString();
-
-                    switch (field.Type)
-                    {
-                        case FieldType.LV:
-                            length = length.PadLeft(1, '0');
-                            break;
-                        case FieldType.LLV:
-                            length = length.PadLeft(2, '0');
-                            break;
-                        case FieldType.LLLV:
-                            length = length.PadLeft(3, '0');
-                            break;
-                    }
-
-                    builder.Append(length + _fields[key]);
                 }
             }
 
