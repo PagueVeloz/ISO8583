@@ -23,7 +23,7 @@ namespace ISO8583.Message
         public SendMessage(string type)
         {
             _type = type;
-            _encoding = Encoding.GetEncoding("ASCII");
+            _encoding = Encoding.ASCII;
             _fields = new Dictionary<short, string>();
             _built = null;
         }

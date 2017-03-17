@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <AssemblyTitle>ISO8583</AssemblyTitle>
-    <TargetFramework>netstandard1.2</TargetFramework>
+    <TargetFramework>netstandard1.3</TargetFramework>
     <AssemblyName>ISO8583</AssemblyName>
     <PackageId>ISO8583</PackageId>
     <Authors>Robson da Silva &lt;robson.silva@pagueveloz.com.br&gt;</Authors>
@@ -16,7 +16,7 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <AssemblyVersion>1.0.1.0</AssemblyVersion>
     <FileVersion>1.0.1.0</FileVersion>
-    <Version>4.0.0</Version>
+    <Version>5.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
