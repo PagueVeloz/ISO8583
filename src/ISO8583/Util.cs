@@ -107,7 +107,7 @@ namespace ISO8583
         /// <summary>
         /// Read the active bits from an binary string.
         /// </summary>
-        /// <param name="hexa">An binary string.</param>
+        /// <param name="binary">An binary string.</param>
         /// <returns>An array with the active bits.</returns>
         public static short[] ReadActiveBitsFromBinaryBitmap(string binary)
         {

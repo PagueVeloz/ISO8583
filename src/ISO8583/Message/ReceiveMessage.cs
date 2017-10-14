@@ -8,14 +8,13 @@ namespace ISO8583.Message
     /// </summary>
     public class ReceiveMessage
     {
-        private string _type;
-        private string _bitmap;
-        private IDictionary<short, string> _fields;
+        private readonly string _type;
+        private readonly string _bitmap;
+        private readonly IDictionary<short, string> _fields;
 
         /// <summary>
         /// Instantiate a new message based on the content received.
         /// </summary>
-        /// <param name="type">The content received.</param>
         public ReceiveMessage(MessageLayout layout, string content)
         {
             _fields = new Dictionary<short, string>();
@@ -47,8 +46,6 @@ namespace ISO8583.Message
                             break;
                         case FieldType.LLLV:
                             headSize = 3;
-                            break;
-                        default:
                             break;
                     }
 
