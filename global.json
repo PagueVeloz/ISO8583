@@ -1,9 +1,8 @@
 {
   "sdk": {
-    "version": "1.0.1"
+    "version": "2.0.0"
   },
   "projects": [
-    "src/Console",
     "src/ISO8583",
     "tests/ISO8583.Tests"
   ]
