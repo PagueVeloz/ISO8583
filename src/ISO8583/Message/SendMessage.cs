@@ -10,11 +10,11 @@ namespace ISO8583.Message
     /// </summary>
     public class SendMessage
     {
-        private string _type;
+        private readonly string _type;
         private Encoding _encoding;
-        private IDictionary<short, string> _fields;
+        private readonly IDictionary<short, string> _fields;
         private string _built;
-        private MessageLayout _layout;
+        private readonly MessageLayout _layout;
 
         /// <summary>
         /// Instantiate a new message determining the type.

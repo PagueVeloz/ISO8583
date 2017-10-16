@@ -10,6 +10,7 @@
         /// </summary>
         /// <param name="size">The size of the field.</param>
         /// <param name="type">The type of the field.</param>
+        /// <param name="dataType">The type of the data.</param>
         public FieldLayout(int? size, FieldType type, DataType dataType)
         {
             Size = size;

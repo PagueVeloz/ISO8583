@@ -11,4 +11,6 @@ tests/ISO8583.Tests/bin/*
 tests/ISO8583.Tests/obj/*
 tests/ISO8583.Tests/project.lock.json
 
-.vs/*
+.vs/
+.idea/
+

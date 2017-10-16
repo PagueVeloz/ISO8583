@@ -1,6 +1,6 @@
-﻿using ISO8583.Message;
+﻿using System.Text;
+using ISO8583.Message;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Text;
 
 namespace ISO8583.Tests
 {

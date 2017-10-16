@@ -8,8 +8,8 @@ namespace ISO8583.Message
     /// </summary>
     public class MessageLayout
     {
-        private string _type;
-        private IDictionary<short, FieldLayout> _fields;
+        private readonly string _type;
+        private readonly IDictionary<short, FieldLayout> _fields;
 
         /// <summary>
         /// Instantiante a new message layout.
@@ -30,6 +30,7 @@ namespace ISO8583.Message
         /// </summary>
         /// <param name="bit">The bit of the field.</param>
         /// <param name="size">The size of the field.</param>
+        /// <param name="dataType">The type of the data.</param>
         public void AddField(short bit, int size, DataType dataType = DataType.N)
         {
             _fields.Add(bit, new FieldLayout(size, FieldType.FIX, dataType));
@@ -39,7 +40,8 @@ namespace ISO8583.Message
         /// Insert a new field layout.
         /// </summary>
         /// <param name="bit">The bit of the field.</param>
-        /// <param name="type">The type of the field.</param>
+        /// <param name="type">The type of the field.</param>        
+        /// <param name="dataType">The type of the data.</param>
         public void AddField(short bit, FieldType type, DataType dataType = DataType.N)
         {
             if (type == FieldType.FIX)
@@ -55,6 +57,7 @@ namespace ISO8583.Message
         /// </summary>
         /// <param name="bit">The bit of the field.</param>
         /// <param name="size">The size of the field.</param>
+        /// <param name="dataType">The type of the data.</param>
         /// <returns>The message layout to use fluently.</returns>
         public MessageLayout AppendField(short bit, int size, DataType dataType = DataType.N)
         {
@@ -68,6 +71,7 @@ namespace ISO8583.Message
         /// </summary>
         /// <param name="bit">The bit of the field.</param>
         /// <param name="type">The type of the field.</param>
+        /// <param name="dataType">The type of the data.</param>
         /// <returns>The message layout to use fluently.</returns>
         public MessageLayout AppendField(short bit, FieldType type, DataType dataType = DataType.N)
         {
