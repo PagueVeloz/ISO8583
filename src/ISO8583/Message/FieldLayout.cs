@@ -1,4 +1,6 @@
-﻿namespace ISO8583.Message
+﻿using static ISO8583.Message.Enums;
+
+namespace ISO8583.Message
 {
     /// <summary>
     /// Represents the layout of a message field.
@@ -10,7 +12,6 @@
         /// </summary>
         /// <param name="size">The size of the field.</param>
         /// <param name="type">The type of the field.</param>
-        /// <param name="dataType">The type of the data.</param>
         public FieldLayout(int? size, FieldType type, DataType dataType)
         {
             Size = size;
@@ -32,20 +33,5 @@
         /// The data type of the field.
         /// </summary>
         public DataType DataType { get; set; }
-    }
-
-    public enum FieldType
-    {
-        FIX,
-        LV,
-        LLV,
-        LLLV
-    }
-
-    public enum DataType
-    {
-        N,
-        A,
-        AN
     }
 }

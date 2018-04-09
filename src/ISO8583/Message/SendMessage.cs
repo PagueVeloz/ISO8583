@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using static ISO8583.Message.Enums;
 
 namespace ISO8583.Message
 {
@@ -10,11 +11,11 @@ namespace ISO8583.Message
     /// </summary>
     public class SendMessage
     {
-        private readonly string _type;
+        private string _type;
         private Encoding _encoding;
-        private readonly IDictionary<short, string> _fields;
+        private IDictionary<short, string> _fields;
         private string _built;
-        private readonly MessageLayout _layout;
+        private MessageLayout _layout;
 
         /// <summary>
         /// Instantiate a new message determining the type.
@@ -23,7 +24,7 @@ namespace ISO8583.Message
         public SendMessage(string type)
         {
             _type = type;
-            _encoding = Encoding.ASCII;
+            _encoding = Encoding.GetEncoding("ASCII");
             _fields = new Dictionary<short, string>();
             _built = null;
         }
@@ -35,6 +36,16 @@ namespace ISO8583.Message
         public SendMessage(MessageLayout layout) : this(layout.Type)
         {
             _layout = layout;
+        }
+
+        /// <summary>
+        /// Instantiate a new message determining the type and encoding.
+        /// </summary>
+        /// <param name="layout">The layout of the message.</param>
+        /// <param name="content">A message content previously built.</param>
+        public SendMessage(MessageLayout layout, string content) : this(layout)
+        {
+            _built = content;
         }
 
         /// <summary>
@@ -55,6 +66,18 @@ namespace ISO8583.Message
         public SendMessage(MessageLayout layout, Encoding encoding) : this(layout.Type, encoding)
         {
             _layout = layout;
+        }
+
+        /// <summary>
+        /// Instantiate a new message determining the type and encoding.
+        /// </summary>
+        /// <param name="layout">The layout of the message.</param>
+        /// <param name="encoding">The encoding to use when packing (Pack()) message into bytes to send.</param>
+        /// <param name="content">A message content previously built.</param>
+        public SendMessage(MessageLayout layout, Encoding encoding, string content) : this(layout.Type, encoding)
+        {
+            _layout = layout;
+            _built = content;
         }
 
         /// <summary>
@@ -162,6 +185,26 @@ namespace ISO8583.Message
         }
 
         /// <summary>
+        /// Insert or concat the bit value into message.
+        /// </summary>
+        /// <param name="bit">The bit to be added or concatenated.</param>
+        /// <param name="value">The value of the bit. Must be in the correct format and size.</param>
+        /// <returns>The message appended to use fluently.</returns>
+        public SendMessage Compose(short bit, string value)
+        {
+            if (_fields.ContainsKey(bit))
+            {
+                _fields[bit] += value;
+            }
+            else
+            {
+                _fields.Add(bit, value);
+            }
+
+            return this;
+        }
+
+        /// <summary>
         /// Set or update the encoding of the message.
         /// </summary>
         /// <param name="encoding">The encoding to use when packing (Pack()) message into bytes to send.</param>
@@ -261,4 +304,5 @@ namespace ISO8583.Message
             return _built;
         }
     }
+
 }

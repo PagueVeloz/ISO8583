@@ -24,18 +24,19 @@ namespace ISO8583
         }
 
         /// <summary>
-        /// Build a 64 bits binary string activating some bits.
+        /// Build a binary string activating some bits.
         /// </summary>
         /// <param name="activeBits">The bits to activate.</param>
         /// <returns>A binary string.</returns>
         public static string BuildBinaryBitmap(params short[] activeBits)
         {
-            if (activeBits.Any(x => x < 1 || x > 64))
-            {
-                throw new InvalidOperationException("The bits must be between 1 and 64.");
-            }
+            var aux = activeBits.Max() <= 64 ? 64 : 128;
+            var binary = string.Empty.PadRight(aux, '0').ToArray();
 
-            var binary = string.Empty.PadRight(64, '0').ToArray();
+            if (aux == 128)
+            {
+                binary[0] = '1';
+            }
 
             foreach (var bit in activeBits)
             {
@@ -107,15 +108,10 @@ namespace ISO8583
         /// <summary>
         /// Read the active bits from an binary string.
         /// </summary>
-        /// <param name="binary">An binary string.</param>
+        /// <param name="hexa">An binary string.</param>
         /// <returns>An array with the active bits.</returns>
         public static short[] ReadActiveBitsFromBinaryBitmap(string binary)
         {
-            if (binary.Length != 64)
-            {
-                throw new InvalidOperationException("The binary must have 64 bits.");
-            }
-
             var bits = new List<short>();
 
             for (short i = 0; i < binary.Length; i++)
