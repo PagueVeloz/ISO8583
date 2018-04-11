@@ -1,6 +1,6 @@
 # ISO8583
 
-Uma biblioteca para auxiliar na construção e leitura mensagens ISO8583.
+Uma biblioteca para auxiliar na construção e leitura de mensagens ISO8583.
 
 Como montar uma mensagem:
 
